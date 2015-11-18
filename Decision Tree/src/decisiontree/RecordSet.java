@@ -110,6 +110,19 @@ public class RecordSet extends ArrayList<Record> {
     }
     
     /**
+     * Get the information gain of a class.
+     * 
+     * @param className The class.
+     * @param attribute The attribute.
+     * @param otherClass THe other class.
+     * @return The information gain.
+     */
+    public double getGain(String className, String attribute, String otherClass) {
+        RecordSet subset = this.subSet(className, attribute);
+        return subset.getGain(otherClass);
+    }
+    
+    /**
      * Get the list of attribute values for a given class.
      * 
      * @param className The class.
