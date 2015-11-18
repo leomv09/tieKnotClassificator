@@ -128,7 +128,7 @@ public class RecordSet extends ArrayList<Record> {
      * @param className The class.
      * @return The list of attribute values.
      */
-    private List<String> getAttributesOfClass(String className) {
+    public List<String> getAttributesOfClass(String className) {
         Set<String> result = new HashSet<>();
         
         for (Record record : this) {

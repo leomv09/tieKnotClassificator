@@ -43,6 +43,7 @@ public class Node {
         this.data = Data;
         this.parent = null;
         this.children = new LinkedList<>();
+        this.relation = null;
     }
     
     /**
