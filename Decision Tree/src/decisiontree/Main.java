@@ -31,6 +31,10 @@ public class Main {
         
         try {
             RecordSet set = fm.readCSV(path);
+            Tree tree = new Tree();
+            Node root = tree.build(set);
+            System.out.println("Tree: ");
+            System.out.println(tree.toString());
         }
         catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
