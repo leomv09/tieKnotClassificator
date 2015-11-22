@@ -1,6 +1,7 @@
 package decisiontree;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -9,7 +10,6 @@ import java.util.ArrayList;
  * @author Leo
  */
 public class Tree {
-    
     
     private Node root;
     
@@ -75,32 +75,42 @@ public class Tree {
      * @param records A list of classes information.
      * @param node The node to set its children.
      */
-    private void setChildrenOfNode(RecordSet records, Node node, ArrayList<String> usedClasses) {
-        ArrayList<Node> createdNodes = new ArrayList<>();
-        
-        for (String attribute : records.getAttributesOfClass(node.getData())) {
-            String bestClass = null;
-            double currentGain;
-            double gain = -1;
+    private void setChildrenOfNode(RecordSet records, Node node, List<String> usedClasses) {
+        String className = node.getData();
+        double maxGain, currentGain;
+        List<String> classes;
+        RecordSet subSet;
+        String bestClass;
+        String decision;
+        Node currentNode;
+
+        for (String attribute : records.getAttributesOfClass(className)) {
+            subSet = records.subSet(className, attribute);
             
-            for (String currentClass : records.getClasses()) {
-                if (!usedClasses.contains(currentClass)) {
-                    currentGain = records.getGain(node.getData(), attribute, currentClass);
-                    if (currentGain > gain) {
-                        gain = currentGain;
+            if (subSet.isEmpty() || subSet.getEntropy() == 0) {
+                decision = subSet.get(0).getResult().getValue();
+                currentNode = new Node(decision, node, attribute);
+                node.addChild(currentNode);
+            }
+            else {
+                classes = subSet.getClasses();
+                classes.removeAll(usedClasses);
+                maxGain = Double.MIN_VALUE;
+                bestClass = null;
+                
+                for (String currentClass : classes) {
+                    currentGain = subSet.getGain(currentClass);
+                    if (currentGain > maxGain) {
+                        maxGain = currentGain;
                         bestClass = currentClass;
-                        usedClasses.add(currentClass);
                     }
                 }
+                
+                usedClasses.add(bestClass);
+                currentNode = new Node(bestClass, node, attribute);
+                node.addChild(currentNode);
+                setChildrenOfNode(subSet, currentNode, usedClasses);
             }
-            
-            Node child = new Node(bestClass, node, attribute);
-            node.addChild(child);
-            createdNodes.add(child);
-        }
-        
-        for (Node createdNode : createdNodes) {
-            setChildrenOfNode(records, createdNode, usedClasses);
         }
     }
     

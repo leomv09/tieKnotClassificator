@@ -31,21 +31,6 @@ public class Main {
         
         try {
             RecordSet set = fm.readCSV(path);
-            
-            for (String className : set.getClasses()) {
-                System.out.println(className + ": " + set.getGain(className));
-            }
-            
-            /*
-            for (Record record : set) {
-                for (Attribute attr : record.getAttributes()) {
-                    System.out.println(attr.getClassName() + " " + attr.getValue());
-                }
-                System.out.println(record.getResult().getValue());
-                System.out.println();
-            }
-            */
-            
             Tree tree = new Tree(set);
             System.out.println(tree.toString());
         }
