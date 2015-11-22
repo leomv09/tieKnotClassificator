@@ -39,9 +39,11 @@ public class RecordSet extends ArrayList<Record> {
      */
     public RecordSet subSet(String className, String value) {
         RecordSet set = new RecordSet();
+        Attribute attr;
         
         for (Record record : this) {
-            if (record.hasAttribute(className) && record.getAttribute(className).getValue().equals(value)) {
+            attr = record.getAttribute(className);
+            if (attr != null && attr.getValue().equalsIgnoreCase(value)) {
                 set.add(record);
             }
         }
@@ -151,7 +153,7 @@ public class RecordSet extends ArrayList<Record> {
         int count = 0;
         
         for (Record record : this) {
-            if (record.hasAttribute(className) && record.getAttribute(className).getValue().equals(value)) {
+            if (record.hasAttribute(className) && record.getAttribute(className).getValue().equalsIgnoreCase(value)) {
                 count++;
             }
         }

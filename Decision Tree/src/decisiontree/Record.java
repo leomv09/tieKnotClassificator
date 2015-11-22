@@ -46,12 +46,7 @@ public class Record {
      * @return True if the record contains an attribute.
      */
     public boolean hasAttribute(String className) {
-        for (Attribute attr : this.attributes) {
-            if (attr.getClassName().equals(className)) {
-                return true;
-            }
-        }
-        return false;
+        return attributes.stream().anyMatch(attr -> attr.getClassName().equalsIgnoreCase(className));
     }
 
     /**
@@ -71,7 +66,7 @@ public class Record {
      */
     public Attribute getAttribute(String className) {
         for (Attribute attr : this.attributes) {
-            if (attr.getClassName().equals(className)) {
+            if (attr.getClassName().equalsIgnoreCase(className)) {
                 return attr;
             }
         }

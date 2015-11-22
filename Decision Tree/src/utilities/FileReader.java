@@ -63,7 +63,7 @@ public class FileReader {
             String[] tokens = line.split(",");
             for (int i = 0; i < tokens.length; i++) {
                 if (!tokens[i].isEmpty()) {
-                    record.addAttribute(header[i], tokens[i]);
+                    record.addAttribute(header[i].trim(), tokens[i].trim());
                 }
             }
         }

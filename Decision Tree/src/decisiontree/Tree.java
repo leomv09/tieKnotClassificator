@@ -20,9 +20,12 @@ public class Tree {
     /**
      * Creates a new instance of tree.
      */
-    public Tree()
-    {
+    public Tree() {
         this.root = null;
+    }
+    
+    public Tree(RecordSet set) {
+        build(set);
     }
 
     
