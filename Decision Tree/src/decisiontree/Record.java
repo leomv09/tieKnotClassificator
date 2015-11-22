@@ -11,6 +11,7 @@ import java.util.List;
 public class Record {
     
     private final List<Attribute> attributes;
+    private Attribute result;
     
     /**
      * Create a new Record object.
@@ -81,6 +82,24 @@ public class Record {
      */
     public Attribute getAttribute(int index) {
         return this.attributes.get(index);
+    }
+
+    /**
+     * Get the result attribute.
+     * 
+     * @return The result attribute.
+     */
+    public Attribute getResult() {
+        return result;
+    }
+
+    /**
+     * Set the result attribute.
+     * 
+     * @param result The result attribute.
+     */
+    public void setResult(Attribute result) {
+        this.result = result;
     }
     
     /**

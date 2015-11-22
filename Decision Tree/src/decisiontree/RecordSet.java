@@ -78,10 +78,10 @@ public class RecordSet extends ArrayList<Record> {
         double proportion;
         double count;
         
-        List<String> attributes = getAttributesOfClass("RESULTADO");
+        List<String> attributes = getAttributesOfResult();
         
         for (String attr : attributes) {
-            count = countAttributes("RESULTADO", attr);
+            count = countAttributesOfResult(attr);
             proportion = count / this.size();
             entropy -= proportion * (Math.log(proportion) / Math.log(2));
         }
@@ -143,6 +143,21 @@ public class RecordSet extends ArrayList<Record> {
     }
     
     /**
+     * Get the list of attribute values of the result class.
+     * 
+     * @return The list of attribute values.
+     */
+    public List<String> getAttributesOfResult() {
+        Set<String> result = new HashSet<>();
+        
+        for (Record record : this) {
+            result.add(record.getResult().getValue());
+        }
+        
+        return new ArrayList(result);
+    }
+    
+    /**
      * Count the number of repetitions of a given attribute.
      * 
      * @param className The class.
@@ -154,6 +169,24 @@ public class RecordSet extends ArrayList<Record> {
         
         for (Record record : this) {
             if (record.hasAttribute(className) && record.getAttribute(className).getValue().equalsIgnoreCase(value)) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+    
+    /**
+     * Count the number of repetitions of a given attribute in the result class.
+     * 
+     * @param value The value.
+     * @return The number of repetitions.
+     */
+    private int countAttributesOfResult(String value) {
+        int count = 0;
+        
+        for (Record record : this) {
+            if (record.getResult().getValue().equalsIgnoreCase(value)) {
                 count++;
             }
         }

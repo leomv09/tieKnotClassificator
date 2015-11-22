@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package decisiontree;
 
 import java.util.LinkedList;
@@ -14,35 +9,33 @@ import java.util.List;
  */
 public class Node {
     
-    private String data;
+    private final List<Node> children;
     private Node parent;
-    private List<Node> children;
+    private String data;
     private String relation;
-    
     
     /***
      * Creates a new object of a tree node.
-     * @param Data The node data.
-     * @param Parent The parent node.
-     * @param Relation The type of parent-child relation.
+     * 
+     * @param data The node data.
+     * @param parent The parent node.
+     * @param relation The type of parent-child relation.
      */
-    public Node(String Data, Node Parent, String Relation)
-    {
-        this.data = Data;
-        this.parent = Parent;
+    public Node(String data, Node parent, String relation) {
+        this.data = data;
+        this.parent = parent;
         this.children = new LinkedList<>();
-        this.relation = Relation;
+        this.relation = relation;
     }
 
     /**
      * Creates a new object of tree node.
-     * @param Data The node data.
+     * @param data The node data.
      */
-    public Node(String Data)
-    {
-        this.data = Data;
-        this.parent = null;
+    public Node(String data) {
         this.children = new LinkedList<>();
+        this.data = data;
+        this.parent = null;
         this.relation = null;
     }
     
@@ -110,7 +103,5 @@ public class Node {
     public void addChild(Node child) {
         this.children.add(child);
     }
-    
-    
     
 }

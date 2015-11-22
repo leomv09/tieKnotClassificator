@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package decisiontree;
 
 import java.util.ArrayList;
@@ -10,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  * Defines the tree class.
+ * 
  * @author Leo
  */
 public class Tree {
@@ -24,6 +20,11 @@ public class Tree {
         this.root = null;
     }
     
+    /**
+     * Creates a new instance of tree.
+     * 
+     * @param set The record set.
+     */
     public Tree(RecordSet set) {
         build(set);
     }
@@ -31,7 +32,8 @@ public class Tree {
     
     /**
      * Obtains the root node of the tree.
-     * @return 
+     * 
+     * @return The root node.
      */
     public Node getRoot() {
         return root;
@@ -39,7 +41,8 @@ public class Tree {
 
     /**
      * Sets the root node of the tree.
-     * @param root Root node.
+     * 
+     * @param root The root node.
      */
     public void setRoot(Node root) {
         this.root = root;
@@ -47,17 +50,17 @@ public class Tree {
     
     /**
      * Sets the root of the tree base on the given records.
+     * 
      * @param records A list of records.
      */
-    private void setRoot(RecordSet records)
-    {
-        double gain = 0;
+    private void setRoot(RecordSet records) {
         String rootValue = null;
-        for(String className : records.getClasses())
-        {
-            double currentGain = records.getGain(className);
-            if(currentGain > gain)
-            {
+        double currentGain;
+        double gain = 0;
+        
+        for (String className : records.getClasses()) {
+            currentGain = records.getGain(className);
+            if (currentGain > gain) {
                 gain = currentGain;
                 rootValue = className;
             }
@@ -68,47 +71,46 @@ public class Tree {
     
     /**
      * Sets the children of a node by implementing the ID3 algorithm.
-     * @param records A list of classes' information.
+     * 
+     * @param records A list of classes information.
      * @param node The node to set its children.
      */
-    private void setChildrenOfNode(RecordSet records, Node node, ArrayList<String> usedClasses)
-    {
+    private void setChildrenOfNode(RecordSet records, Node node, ArrayList<String> usedClasses) {
         ArrayList<Node> createdNodes = new ArrayList<>();
-        for(String attribute : records.getAttributesOfClass(node.getData()))
-        {
-            double gain = -1;
+        
+        for (String attribute : records.getAttributesOfClass(node.getData())) {
             String bestClass = null;
-            for(String currentClass : records.getClasses())
-            {
-                if(!usedClasses.contains(currentClass))
-                {
-                   double currentGain = records.getGain(node.getData(), attribute, currentClass);
-                    if(currentGain > gain)
-                    {
+            double currentGain;
+            double gain = -1;
+            
+            for (String currentClass : records.getClasses()) {
+                if (!usedClasses.contains(currentClass)) {
+                    currentGain = records.getGain(node.getData(), attribute, currentClass);
+                    if (currentGain > gain) {
                         gain = currentGain;
                         bestClass = currentClass;
                         usedClasses.add(currentClass);
                     }
-                }      
+                }
             }
+            
             Node child = new Node(bestClass, node, attribute);
             node.addChild(child);
             createdNodes.add(child);
         }
         
-        for(Node createdNode : createdNodes)
-        {
+        for (Node createdNode : createdNodes) {
             setChildrenOfNode(records, createdNode, usedClasses);
         }
     }
     
     /**
      * Builds the decision tree base on the classes information.
-     * @param records The classes' information.
+     * 
+     * @param records The classes information.
      * @return The root node of the tree.
      */
-    public Node build(RecordSet records)
-    {
+    public Node build(RecordSet records) {
         setRoot(records);
         ArrayList<String> usedClasses = new ArrayList<>();
         usedClasses.add(this.root.getData());
@@ -118,6 +120,7 @@ public class Tree {
     
     /**
      * Obtain tab indentation that represents the tree level.
+     * 
      * @param level The indentation (tree) level.
      * @return A String containing spaces.
      */
@@ -134,38 +137,38 @@ public class Tree {
     
     /**
      * Transforms the tree into a readable string.
+     * 
      * @param node The node to evaluate.
      * @param print A String that contains previous data.
      * @param indentation The indentation (branch level) level.
      */
-    private void printTree(Node node, StringBuilder print, int indentation)
-    {
-        if(node.equals(this.root))
-        {
-           print.append(getIndentation(indentation)).append("(root) -> ").append(node.getData()).append("\n"); 
+    private void printTree(Node node, StringBuilder print, int indentation) {
+        if(node.equals(this.root)) {
+           print.append(getIndentation(indentation))
+                .append("(root) -> ")
+                .append(node.getData())
+                .append("\n"); 
         }
-        else
-        {
+        else {
             String nodeData = node.getData() == null ? "<leaf>" : node.getData();
-           print.append(getIndentation(indentation)).append(" - (").append(node.getRelation())
-                .append(") -> ").append(nodeData).append("\n"); 
+            print.append(getIndentation(indentation))
+                 .append(" - (")
+                 .append(node.getRelation())
+                 .append(") -> ")
+                 .append(nodeData)
+                 .append("\n"); 
         }
         
-        for(Node child : node.getChildren())
-        {
+        for (Node child : node.getChildren()) {
            printTree(child, print, indentation+1); 
         }
 
     }
     
-    
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         printTree(this.root, sb, 0);
-        
-        return sb.toString();  
+        return sb.toString();
     }
-    
 }

@@ -1,12 +1,11 @@
 package utilities;
 
+import decisiontree.Attribute;
 import decisiontree.Record;
 import decisiontree.RecordSet;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -63,7 +62,13 @@ public class FileReader {
             String[] tokens = line.split(",");
             for (int i = 0; i < tokens.length; i++) {
                 if (!tokens[i].isEmpty()) {
-                    record.addAttribute(header[i].trim(), tokens[i].trim());
+                    Attribute attr = new Attribute(header[i].trim(), tokens[i].trim());
+                    if (i == tokens.length - 1) {
+                        record.setResult(attr);
+                    }
+                    else {
+                        record.addAttribute(attr);
+                    }
                 }
             }
         }
