@@ -1,4 +1,4 @@
-package decisiontree;
+package id3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,16 +86,17 @@ public class Tree {
 
         for (String attribute : records.getAttributesOfClass(className)) {
             subSet = records.subSet(className, attribute);
-            
-            if (subSet.isEmpty() || subSet.getEntropy() == 0) {
-                decision = subSet.get(0).getResult().getValue();
+            classes = subSet.getClasses();
+            classes.removeAll(usedClasses);
+
+
+            if (subSet.getEntropy() == 0 || classes.size() == 1) {
+                decision = subSet.getMostCommonResult();
                 currentNode = new Node(decision, node, attribute);
                 node.addChild(currentNode);
             }
             else {
-                classes = subSet.getClasses();
-                classes.removeAll(usedClasses);
-                maxGain = Double.MIN_VALUE;
+                maxGain = -1;
                 bestClass = null;
                 
                 for (String currentClass : classes) {
@@ -134,13 +135,10 @@ public class Tree {
      * @param level The indentation (tree) level.
      * @return A String containing spaces.
      */
-    private String getIndentation(int level)
-    {
-        String tab = "  ";
+    private String getIndentation(int level) {
         String result = "";
-        for(int i = 0; i < level; i++)
-        {
-            result+=tab;
+        for (int i = 0; i < level; i++) {
+            result += "  ";
         }
         return result;
     }
@@ -153,24 +151,22 @@ public class Tree {
      * @param indentation The indentation (branch level) level.
      */
     private void printTree(Node node, StringBuilder print, int indentation) {
-        if(node.equals(this.root)) {
+        if (node.equals(this.root)) {
            print.append(getIndentation(indentation))
-                .append("(root) -> ")
                 .append(node.getData())
-                .append("\n"); 
+                .append("\n");
         }
         else {
-            String nodeData = node.getData() == null ? "<leaf>" : node.getData();
             print.append(getIndentation(indentation))
-                 .append(" - (")
+                 .append("(")
                  .append(node.getRelation())
                  .append(") -> ")
-                 .append(nodeData)
+                 .append(node.getData())
                  .append("\n"); 
         }
         
         for (Node child : node.getChildren()) {
-           printTree(child, print, indentation+1); 
+           printTree(child, print, indentation + 1); 
         }
 
     }

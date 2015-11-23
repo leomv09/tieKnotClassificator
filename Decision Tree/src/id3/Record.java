@@ -1,4 +1,4 @@
-package decisiontree;
+package id3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +48,18 @@ public class Record {
      */
     public boolean hasAttribute(String className) {
         return attributes.stream().anyMatch(attr -> attr.getClassName().equalsIgnoreCase(className));
+    }
+    
+    /**
+     * Check if the record contains an attribute.
+     * 
+     * @param className The class of attribute.
+     * @param value The value of the attribute.
+     * 
+     * @return True if the record contains an attribute.
+     */
+    public boolean hasAttribute(String className, String value) {
+        return attributes.stream().anyMatch(attr -> attr.getClassName().equalsIgnoreCase(className) && attr.getValue().equalsIgnoreCase(value));
     }
 
     /**

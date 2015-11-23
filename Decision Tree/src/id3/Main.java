@@ -1,4 +1,4 @@
-package decisiontree;
+package id3;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,7 +8,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import utilities.FileReader;
+import util.FileReader;
 
 /**
  *

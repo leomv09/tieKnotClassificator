@@ -1,17 +1,19 @@
 CAMISA,MANGA,CAJERO/CONTADOR/GERENTE/INGENIERO,MATERIAL_CORBATA,CHAQUETA_TWEED,LARGO_CORBATA,CUELLO_CAMISA,CUELLO_USUARIO,GROSOR_CORBATA,ANCHO_CORBATA,RESULTADO
-Formal,Larga,,Sintético,,Larga,Inglés,,,,Prince Albert
-Formal,Larga,,Sintético,,Larga,Italiano,,,,Windsor
-Formal,Larga,,Sintético,,Corta,Inglés,Grueso,,,Half Windsor
-Formal,Larga,,Sintético,,Corta,Inglés,Delgado,Gruesa,,Four in Hand
-Formal,Larga,,Sintético,,Corta,Inglés,Delgado,Delgada,Ancha,Kent
-Formal,Larga,,Sintético,,Corta,Inglés,Delgado,Delgada,Delgada,Four in Hand
-Formal,Larga,,Sintético,,Corta,Italiano,Grueso,Gruesa,,Prince Albert
-Formal,Larga,,Sintético,,Corta,Italiano,Grueso,Delgada,Ancha,Prince Albert
-Formal,Larga,,Sintético,,Corta,Italiano,Grueso,Delgada,Delgada,Windsor
-Formal,Larga,,Sintético,,Corta,Italiano,Delgado,Gruesa,,Windsor
-Formal,Larga,,Sintético,,Corta,Italiano,Delgado,Delgada,,Prince Albert
-Formal,Larga,,Lana/Punto,Si,,,,,,Four in Hand / Kent
-Formal,Larga,,Lana/Punto,No,,,,,,Oops. Deberias considerar cambiar de corbata
-Formal,Corta,Si,,,,,,,,Four in Hand
-Formal,Corta,No,,,,,,,,Consigue una camisa de manga larga y hablaremos después
-Informal,,,,,,,,,,Consigue una camisa formal y hablaremos después
+Formal,Larga,No,Sintético,No Importa,Larga,Inglés,No Importa,No Importa,No Importa,Prince Albert
+Formal,Larga,No,Sintético,No Importa,Larga,Italiano,No Importa,No Importa,No Importa,Windsor
+Formal,Larga,No,Sintético,No Importa,Corta,Inglés,Grueso,No Importa,No Importa,Half Windsor
+Formal,Larga,No,Sintético,No Importa,Corta,Inglés,Delgado,Gruesa,No Importa,Four in Hand
+Formal,Larga,No,Sintético,No Importa,Corta,Inglés,Delgado,Delgada,Ancha,Kent
+Formal,Larga,No,Sintético,No Importa,Corta,Inglés,Delgado,Delgada,Delgada,Four in Hand
+Formal,Larga,No,Sintético,No Importa,Corta,Italiano,Grueso,Gruesa,No Importa,Prince Albert
+Formal,Larga,No,Sintético,No Importa,Corta,Italiano,Grueso,Delgada,Ancha,Prince Albert
+Formal,Larga,No,Sintético,No Importa,Corta,Italiano,Grueso,Delgada,Delgada,Windsor
+Formal,Larga,No,Sintético,No Importa,Corta,Italiano,Delgado,Gruesa,No Importa,Windsor
+Formal,Larga,No,Sintético,No Importa,Corta,Italiano,Delgado,Delgada,No Importa,Prince Albert
+Formal,Larga,No,Lana/Punto,Si,No Importa,Inglés,No Importa,No Importa,No Importa,Four in Hand / Kent
+Formal,Larga,No,Lana/Punto,No,No Importa,Inglés,No Importa,No Importa,No Importa,Oops. Deberias considerar cambiar de corbata
+Formal,Corta,Si,Otros,No Importa,No Importa,Inglés,No Importa,No Importa,No Importa,Four in Hand
+Formal,Corta,No,Otros,No Importa,No Importa,Inglés,No Importa,No Importa,No Importa,Consigue una camisa de manga larga y hablaremos después
+Formal,Larga,No,Seda,No Importa,Larga,Americano,Grueso,Delgada,No Importa,Eldredge
+Formal,Larga,No,Sintético,No Importa,Larga,Inglés,No Importa,Delgada,Delgada,Merovingian
+Informal,Corta,No,Otros,No Importa,No Importa,Inglés,No Importa,No Importa,No Importa,Consigue una camisa formal y hablaremos después

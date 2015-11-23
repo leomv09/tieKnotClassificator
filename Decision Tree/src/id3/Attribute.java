@@ -1,4 +1,4 @@
-package decisiontree;
+package id3;
 
 /**
  * Defines the attribute object of a class.

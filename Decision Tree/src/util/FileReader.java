@@ -1,8 +1,8 @@
-package utilities;
+package util;
 
-import decisiontree.Attribute;
-import decisiontree.Record;
-import decisiontree.RecordSet;
+import id3.Attribute;
+import id3.Record;
+import id3.RecordSet;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

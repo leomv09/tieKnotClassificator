@@ -1,9 +1,15 @@
-package decisiontree;
+package id3;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
 
 /**
  * A set of records.
@@ -13,20 +19,30 @@ import java.util.Set;
 public class RecordSet extends ArrayList<Record> {
     
     /**
+     * Create an empty record set.
+     */
+    public RecordSet() {
+        super();
+    }
+    
+    /**
+     * Create a record set from another set.
+     * 
+     * @param set The record set.
+     */
+    public RecordSet(RecordSet set) {
+        super(set);
+    }
+    
+    /**
      * Creating a subset that contains only those records with a specific class.
      * 
      * @param className The class to filter the result.
      * @return The subset.
      */
     public RecordSet subSet(String className) {
-        RecordSet set = new RecordSet();
-        
-        for (Record record : this) {
-            if (record.hasAttribute(className)) {
-                set.add(record);
-            }
-        }
-        
+        RecordSet set = new RecordSet(this);
+        set.removeIf(record -> !record.hasAttribute(className));
         return set;
     }
     
@@ -38,16 +54,8 @@ public class RecordSet extends ArrayList<Record> {
      * @return The subset.
      */
     public RecordSet subSet(String className, String value) {
-        RecordSet set = new RecordSet();
-        Attribute attr;
-        
-        for (Record record : this) {
-            attr = record.getAttribute(className);
-            if (attr != null && attr.getValue().equalsIgnoreCase(value)) {
-                set.add(record);
-            }
-        }
-        
+        RecordSet set = new RecordSet(this);
+        set.removeIf(record -> !record.hasAttribute(className, value));
         return set;
     }
     
@@ -122,6 +130,27 @@ public class RecordSet extends ArrayList<Record> {
     public double getGain(String className, String attribute, String otherClass) {
         RecordSet subset = this.subSet(className, attribute);
         return subset.getGain(otherClass);
+    }
+    
+    /**
+     * Get the most common result.
+     * 
+     * @return The most common result.
+     */
+    public String getMostCommonResult() {
+        Map<String, Integer> resultCount = new HashMap<>();
+        BiFunction<String, Integer, Integer> lambda = (key, value) -> value == null ? 1 : value + 1;
+        String result;
+        
+        for (Record record : this) {
+            result = record.getResult().getValue();
+            resultCount.compute(result, lambda);
+        }
+        
+        Comparator<Entry<String, Integer>> comparator = (e1, e2) -> e1.getValue() - e2.getValue();
+        Optional<Entry<String, Integer>> max = resultCount.entrySet().stream().max(comparator);
+        
+        return max.get().getKey();
     }
     
     /**
