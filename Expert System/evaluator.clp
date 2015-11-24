@@ -1,199 +1,144 @@
-(deftemplate situacion_sartorial_corbata
-	(slot tipo_camisa)
+(deftemplate corbata
 	(slot material)
-	(slot longitud)
+	(slot chaqueta_tweed)
 	(slot cuello_camisa)
 	(slot cuello_usuario)
-	(slot grosor)
-	(slot anchura))
+	(slot ancho_corbata)
+	(slot grosor_corbata)
+	(slot largo_corbata)
+	(slot camisa))
 
 (deffacts inicio
 	(inicio ambiente_vacio))
 
-(defrule tipo_camisa
+(defrule material
 	(inicio ambiente_vacio)
 	=>
-	(printout t "Que tipo de camisa usas?" crlf
-		"a) Formal, sin cuello" crlf
-		"b) Formal, manga larga" crlf
-		"c) Formal, manga corta" crlf
-		"d) T-shirt/polo/henley" crlf
-		"e) Formal, cuello dove tail" crlf
+	(printout t "De qué material está hecha la corbata?" crlf
+		"a) Lana/Punto" crlf
+		"b) Seda" crlf
+		"c) Sintético" crlf
+		"d) De otro" crlf
 		"(a/b/c/d): ")
-	(assert (situacion_sartorial_corbata (tipo_camisa (read)))))
+	(assert (corbata (material (read)))))
 
-(defrule lo_incomprensible
-	(situacion_sartorial_corbata (tipo_camisa d))
+(defrule lana
+	(corbata (material a))
 	=>
-	(printout t crlf crlf
-		"Y quieres usar corbata?" crlf
-		"(si/no): ")
-	(assert (caso_raro (read))))
+	(printout t "Vas a usar una chaqueta de tweed?" crlf
+		"(s/n): ")
+	(assert (corbata (chaqueta_tweed (read)))))
 
-(defrule circus_circus
-	(caso_raro si)
+(defrule tweed_si
+	(corbata (chaqueta_tweed s))
 	=>
-	(printout t "Bien, en ese caso la verdad cualquier nudo te conviene." crlf
-		"Mientras mas estrafalario mejor." crlf
-		"Solo te recomiendo que te tomes una buena foto para la inscripción" crlf
-		"en la World Clown Association, no vaya a ser que te copien el personaje." crlf)
-	(printout t crlf "(Digita un caracter cualquiera (y RETURN) para terminar)")
-	(read)
-	(exit))
+	(printout t "Four in Hand o Kent estaría bien" crlf))
 
-(defrule informal
-	(caso_raro no)
+(defrule tweed_no
+	(corbata (chaqueta_tweed n))
 	=>
-	(printout t "Bien pensado. Gracias por la conversación." crlf)
-	(printout t crlf "(Digita un caracter cualquiera (y RETURN) para terminar)")
-	(read)
-	(exit))
+	(printout t "Oops. Deberias considerar cambiar de corbata" crlf))
 
-(defrule formal_equivocado
-	(situacion_sartorial_corbata (tipo_camisa a))
+(defrule seda
+	(corbata (material b))
 	=>
-	(printout t "El asunto esta así: a menos que seas un actor" crlf
-		"representando un pasajero del Titanic," crlf
-		"te diría que más bien lo que te conviene es un corbatín" crlf
-		"(de seda, negro o blanco) o un Ascot," crlf
-		"si es que la ocasión realmente lo amerita; sino" crlf
-		"simplemente te equivocaste de camisa." crlf)
-	(printout t crlf "(Digita un caracter cualquiera (y RETURN) para terminar)")
-	(read)
-	(exit))
+	(printout t "Utiliza el nudo Eldredge" crlf))
 
-(defrule formal_manga_corta
-	(situacion_sartorial_corbata (tipo_camisa c))
+(defrule sintetico
+	(corbata (material c))
 	=>
-	(printout t "Eres acaso cajero en un banco estatal," crlf
-		"o contador, o gerente de turno en un restaurante de comida rápida, o" crlf
-		"ingeniero de la NASA?" crlf
-		"(si/no): ")
-	(assert (formal_forzado (read))))
+	(printout t "Qué tipo de cuello tiene la camisa?" crlf
+		"a) Inglés" crlf
+		"b) Italiano" crlf
+		"(a/b)")
+	(assert (corbata (cuello_camisa (read)))))
 
-(defrule formal_fingido
-	(formal_forzado si)
+(defrule cuello_ingles
+	(corbata (cuello_camisa a))
 	=>
-	(printout t "En ese caso, el nudo Four in hand es el correcto." crlf
-		"Es poco sofisticado, discreto y sin pretensiones, como la camisa." crlf
-		"Obviamente, la corbata debe ser de poliester." crlf
-		"Period" crlf)
-	(printout t crlf "(Digita un caracter cualquiera (y RETURN) para terminar)")
-	(read)
-	(exit))
+	(printout t "Qué tan ancho es su cuello?" crlf
+		"a) Grueso" crlf
+		"b) Delgado" crlf
+		"c) No importa" crlf
+		"(a/b/c)")
+	(assert (corbata (cuello_usuario (read)))))
 
-(defrule intentar_de_nuevo
-	(formal_forzado no)
+(defrule cuello_grueso
+	(corbata (cuello_usuario a))
 	=>
-	(printout t "En tal caso, mi consejo es que consigas una camisa de manga larga," crlf
-		"y continuemos luego con esta conversación." crlf)
-	(printout t crlf "(Digita un caracter cualquiera (y RETURN) para terminar)")
-	(read)
-	(exit))
+	(printout t "Utiliza un nudo Half Windsor" crlf))
 
-(defrule sin_cuello
-	(situacion_sartorial_corbata (tipo_camisa a))
+(defrule cuello_delgado
+	(corbata (cuello_usuario b))
 	=>
-	(printout t "Ese tipo de camisa se usa sin corbata. Fin de la historia." crlf)
-	(printout t crlf "(Digita un caracter cualquiera (y RETURN) para terminar)")
-	(read)
-	(exit))
+	(printout t "Qué tan ancha es su corbata?" crlf
+		"a) Delgada" crlf
+		"b) Ancha" crlf
+		"c) No importa" crlf
+		"(a/b/c)")
+	(assert (corbata (ancho_corbata (read)))))
 
-(defrule dove_tail
-	(situacion_sartorial_corbata (tipo_camisa d))
+(defrule corbata_delgada
+	(corbata (ancho_corbata a))
 	=>
-	(printout t "A menos que seas un actor representando un pasajero del Titanic" crlf
-		"no es recomendable corbata con esa camisa." crlf
-		"Si la ocasión lo amerita, deberas usar un corbatín (de seda blanca o negra)" crlf
-		"o un Ascot." crlf)
-	(printout t crlf "(Digita un caracter cualquiera (y RETURN) para terminar)")
-	(read)
-	(exit))
+	(printout t "Utiliza un nudo Four in Hand" crlf))
 
-(defrule definiendo_material
-	(situacion_sartorial_corbata (tipo_camisa b))
+(defrule corbata_ancha
+	(corbata (ancho_corbata b))
 	=>
-	(printout t "Cual es el material de la corbata?" crlf
-		"a) Seda/poliester/microfibra" crlf
-		"b) Lana/punto" crlf
-		"(a/b)? ")
-	(assert (situacion_sartorial_corbata (material (read)))))
+	(printout t "Utiliza un nudo Kent" crlf))
 
-(defrule material_informal
-	(situacion_sartorial_corbata (material b))
+(defrule corbata_indiferente
+	(corbata (ancho_corbata c))
 	=>
-	(printout t "Vas a usar chaqueta de tweed o un Barbour ?" crlf
-		"(si/no): ")
-	(assert (chaqueta_informal (read))))
+	(printout t "Qué tan gruesa es su corbata?" crlf
+		"a) Delgada" crlf
+		"b) No importa" crlf
+		"(a/b)")
+	(assert (corbata (grosor_corbata (read)))))
 
-(defrule chaqueta_informal_correcta
-	(chaqueta_informal si)
+(defrule grosor_corbata_delgada
+	(corbata (grosor_corbata a))
 	=>
-	(printout t "En ese caso, tanto el nudo four in hand como el Kent estarán bien." crlf)
-	(printout t crlf "(Digita un caracter cualquiera (y RETURN) para terminar)")
-	(read)
-	(exit))
+	(printout t "Merovingian" crlf))
 
-(defrule chaqueta_informal_incorrecta
-	(chaqueta informal no)
+(defrule grosor_corbata_indiferente
+	(corbata (grosor_corbata b))
 	=>
-	(printout t "Oops. Ejem...en ese caso quizá deberías considerar cambiar de corbata." crlf)
-	(printout t crlf "(Digita un caracter cualquiera (y RETURN) para terminar)")
-	(read)
-	(exit))
+	(printout t "Utiliza un nudo Prince Albert" crlf))
 
-(defrule material_serio
-	(situacion_sartorial_corbata (material a))
+(defrule cuello_italiano
+	(corbata (cuello_camisa b))
 	=>
-	(printout t "En cuanto a la longitud de la corbata, es:" crlf
-		"a) Apropiada"     crlf
-		"b) Un poco larga" crlf
-		"(a/b): ")
-	(assert (situacion_sartorial_corbata (longitud (read)))))
+	(printout t "Qué tan larga es la corbata?" crlf
+		"a) Corta" crlf
+		"b) Larga" crlf
+		"(a/b)")
+	(assert (corbata (largo_corbata (read)))))
 
-(defrule longitud_excesiva
-	(situacion_sartorial_corbata (longitud b))
+(defrule corbata_corta
+	(corbata (largo_corbata a))
 	=>
-	(printout t "Que tipo de cuello tiene la camisa?" crlf
-		"a) Italiano" crlf
-		"b) Inglés" crlf
-		"(a/b): ")
-	(assert (situacion_sartorial_corbata (cuello_camisa (read)))))
+	(printout t "Viste usted una camisa formal?" crlf
+		"(s/n)")
+	(assert (corbata (camisa (read)))))
 
-(defrule solucion_longitud_1
-	(situacion_sartorial_corbata (longitud b))
-	(situacion_sartorial_corbata (cuello_camisa a))
+(defrule camisa_formal
+	(corbata (camisa s))
 	=>
-	(printout t "Recomiendo el nudo Windsor, con la sección angosta tan larga como sea posible." crlf)
-	(assert (segundo_examen si)))
+	(printout t "Si es usted un cajero de banco estatal, contador, gerente de turno en restaurante de comida rápida o ingeniero de la NASA utiliza un nudo Four in Hand" crlf))
 
-(defrule solucion_longitud_2
-	(situacion_sartorial_corbata (longitud b))
-	(situacion_sartorial_corbata (cuello_camisa b))
+(defrule camisa_informal
+	(corbata (camisa n))
 	=>
-	(printout t "Recomiendo el nudo Prince Albert, con la sección angosta tan larga como sea posible." crlf)
-	(assert (segundo_examen si)))
+	(printout t "Utiliza un nudo Prince Albert" crlf))
 
-(defrule reexaminar
-	(segundo_examen si)
+(defrule corbata_larga
+	(corbata (largo_corbata b))
 	=>
-	(printout t "Es aún muy larga?" crlf
-		"(si/no): ")
-	(assert (aun_muy_larga (read))))
+	(printout t "Utiliza un nudo Windsor" crlf))
 
-(defrule reexamen_bien
-	(aun_muy_larga no)
+(defrule de_otro
+	(corbata (material d))
 	=>
-	(printout t "Vale. Asunto solucionado." crlf)
-	(printout t crlf "(Digita un caracter cualquiera (y RETURN) para terminar)")
-	(read)
-	(exit))
-
-(defrule reexamen_mal
-	(aun_muy_larga si)
-	=>
-	(printout t "Bueno, se hizo todo lo posible." crlf
-		"No queda mas alternativa que cambiar de corbata (y desechar esa inmediatamente)." crlf)
-	(printout t crlf "(Digita un caracter cualquiera (y RETURN) para terminar)")
-	(read)
-	(exit))
+	(printout t "Utiliza un nudo Four in Hand" crlf))
